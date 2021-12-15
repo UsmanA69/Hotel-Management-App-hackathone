@@ -1,7 +1,5 @@
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import { useState, useEffect } from "react";
-import Data from "./Data";
 import {
   signOut,
   auth,
@@ -14,7 +12,7 @@ import Button from "@mui/material/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CircularProgress, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { SEND_ITEM_TO_CART } from "../config/Redux/Actions/actions";
+import { GET_SELECTED_HOTEL, SEND_ITEM_TO_CART } from "../config/Redux/Actions/actions";
 import { useDispatch } from "react-redux";
 import MuiAppBar from "./Navbar";
 
@@ -33,17 +31,18 @@ const ItemCard = () => {
   const [noOfRooms, setNoOfRooms] = useState("");
   const [service, setService] = useState("");
 
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const filterPrice = (event) => {
-    console.log(event.target.value);
     setPrice(event.target.value);
     let a = event.target.value;
-    // let b = parseFloat(a);
+    console.log(a);
     const UpdatedArr = items.filter((x) => {
       return x.perDayPrice == a;
     });
-    setItems(UpdatedArr);
+    setItem(UpdatedArr);
   };
 
   const filterRooms = (event) => {
@@ -53,7 +52,7 @@ const ItemCard = () => {
     const UpdatedArr = items.filter((curElem) => {
       return curElem.numOfRooms == b;
     });
-    setItems(UpdatedArr);
+    setItem(UpdatedArr);
   };
 
   const filterService = (event) => {
@@ -62,12 +61,12 @@ const ItemCard = () => {
     const UpdatedArr = items.filter((x) => {
       return x.hotelService == a;
     });
-    setItems(UpdatedArr);
+    setItem(UpdatedArr);
   };
 
   const addToCart = (elem) => {
-    // setItemCount(itemCount + 1);
-    // dispatch(SEND_ITEM_TO_CART(elem));
+    let hotelData = elem ;
+    dispatch(GET_SELECTED_HOTEL(hotelData));
     if (loggedIn) {
       navigate("/info");
     } else {
@@ -83,9 +82,11 @@ const ItemCard = () => {
       snapshot.forEach((snap) => {
         arr.push(snap.val());
       });
+      setItems(arr);
+      setItem(arr);
     });
-    setItem(arr)
     // console.log(items);
+    // console.log(item);
 
     //setItems(arr);
     // console.log(items);
@@ -102,7 +103,7 @@ const ItemCard = () => {
 
   return (
     <>
-      {!items ? (
+      {!item ? (
         <div
           style={{
             display: "flex",
@@ -118,7 +119,7 @@ const ItemCard = () => {
           <div className="data-items container-fluid mt-5">
             <div className="row">
               <div style={{ paddingLeft: "5%" }}>
-                {/* <Box sx={{ minWidth: 120 }}>
+                <Box sx={{ minWidth: 120 }}>
                   <FormControl
                     sx={{
                       width: { xs: "100%", sm: "150px" },
@@ -138,7 +139,11 @@ const ItemCard = () => {
                     >
                       {items.map((curElem) => {
                         const { perDayPrice } = curElem;
-                        return <MenuItem value={perDayPrice}>${perDayPrice}</MenuItem>;
+                        return (
+                          <MenuItem value={perDayPrice}>
+                            ${perDayPrice}
+                          </MenuItem>
+                        );
                       })}
                     </Select>
                   </FormControl>
@@ -161,7 +166,9 @@ const ItemCard = () => {
                     >
                       {items.map((curElem) => {
                         const { numOfRooms } = curElem;
-                        return <MenuItem value={numOfRooms}>{numOfRooms}</MenuItem>;
+                        return (
+                          <MenuItem value={numOfRooms}>{numOfRooms}</MenuItem>
+                        );
                       })}
                     </Select>
                   </FormControl>
@@ -184,11 +191,15 @@ const ItemCard = () => {
                     >
                       {items.map((curElem) => {
                         const { hotelService } = curElem;
-                        return <MenuItem value={hotelService}>{hotelService}</MenuItem>;
+                        return (
+                          <MenuItem value={hotelService}>
+                            {hotelService}
+                          </MenuItem>
+                        );
                       })}
                     </Select>
                   </FormControl>
-                </Box> */}
+                </Box>
               </div>
               <div className="col-11 mx-auto">
                 <div className="row my-5">

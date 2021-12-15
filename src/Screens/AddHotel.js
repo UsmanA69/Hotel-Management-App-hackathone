@@ -1,6 +1,6 @@
 import "../Css/cart.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useState } from "react";
@@ -19,10 +19,13 @@ const AddHotel = () => {
   const [hotelPicture, setHotelPicture] = useState("");
   const [pregress, setPregress] = useState(0);
 
+  const navigate = useNavigate();
+
   const handlePictureSubmit = (e) => {
     e.preventDefault();
     const file = e.target[0].files[0];
     uploadImage(file);
+    navigate("/");
   };
 
   const uploadImage = (file) => {

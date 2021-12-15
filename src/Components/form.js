@@ -9,6 +9,7 @@ const Form = () => {
   const [loggedIn, setLoggedIn] = useState();
   const [name, setName] = useState();
   const [contactNumber, setContactNumber] = useState();
+  const [email, setEmail] = useState();
   const [cnic, setCnic] = useState();
   const [noOfPersons, setNoOfPersons] = useState();
   const [noOfDays, setNoOfDays] = useState();
@@ -20,6 +21,7 @@ const Form = () => {
   let UserData = {
     name,
     contactNumber,
+    email,
     cnic,
     noOfPersons,
     noOfDays,
@@ -69,6 +71,17 @@ const Form = () => {
               required
               placeholder="Contact Number"
               onChange={(e) => setContactNumber(e.target.value)}
+            />
+          </div>
+          <div className="form-group col-md-6">
+            <label for="inputPassword4">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              id="inputPassword4"
+              required
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="form-group col-md-6">

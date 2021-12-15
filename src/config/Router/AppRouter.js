@@ -3,10 +3,9 @@ import AddHotel from "../../Screens/AddHotel";
 import Cart from "../../Screens/Cart";
 import CompleteScreen from "../../Screens/CompleteScreen";
 import Home from "../../Screens/home";
-import Login from "../../Screens/login";
 import NewLogin from "../../Screens/NewLogin";
 import NewSignUp from "../../Screens/NewSignUp";
-import SignUp from "../../Screens/signUp";
+import UserBookingDetails from "../../Screens/userBookingDetails";
 import DetailConfirmation from "../../Screens/userDetails";
 
 const AppRouter = () => {
@@ -20,6 +19,7 @@ const AppRouter = () => {
         <Route path="/confirm-detail" element={<DetailConfirmation />} />
         <Route path="/completed" element={<CompleteScreen />} />
         <Route path="/addhotel" element={<AddHotel />} />
+        <Route path="/booking-details" element={<UserBookingDetails />} />
       </Routes>
     </Router>
   );

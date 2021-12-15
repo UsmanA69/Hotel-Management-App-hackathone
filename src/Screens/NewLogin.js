@@ -9,11 +9,6 @@ import {
   auth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  database,
-  set,
-  ref,
-  // onChildAdded,
-  // onValue,
 } from "../config/Firebase/Firebase";
 
 
@@ -38,14 +33,6 @@ const NewLogin = () => {
         const userUid = userCredential.user.uid;
         
 
-        // onValue(ref(database, "users/" + userUid), (snapshot) => {
-        //   const data = snapshot.val();
-        // });
-        // let newObj1 ={
-        //   newobj,
-        //   userUid
-        // }
-        // set(ref(database, "users/" + userUid), newobj);
 
         navigate("/info",{state:userUid});
         // ...

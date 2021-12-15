@@ -4,8 +4,6 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import BadgeIcon from "@mui/icons-material/Badge";
-import FlagIcon from "@mui/icons-material/Flag";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import {
@@ -16,7 +14,6 @@ import {
   ref,
   set,
 } from "../config/Firebase/Firebase";
-import { useSelector } from "react-redux";
 
 const NewSignUp = () => {
   const [name, setName] = useState();
@@ -25,10 +22,6 @@ const NewSignUp = () => {
   const [password, setPassword] = useState();
   const [user, setUser] = useState(false);
 
-  // const [cnic, setCnic] = useState();
-  // const [noOfPersons, setNoOfPersons] = useState();
-  // const [noOfDays, setNoOfDays] = useState();
-  // const [address, setAddress] = useState();
 
   const [loading, setLoading] = useState(true);
 
@@ -41,10 +34,6 @@ const NewSignUp = () => {
       email,
       phoneNumber,
       password,
-      //cnic,
-      //noOfPersons,
-      //noOfDays,
-      //address,
     };
 
     createUserWithEmailAndPassword(auth, dataObj.email, dataObj.password)
@@ -102,7 +91,7 @@ const NewSignUp = () => {
               >
                 <div className="form-div">
                   <div className="main-inp-div">
-                    <p className="inp-label-txt">Username</p>
+                    <p className="inp-label-txt">Name</p>
                     <div className="inp-div">
                       <AccountBoxIcon sx={{ color: "gray", opacity: "0.5" }} />
                       <input
@@ -110,7 +99,7 @@ const NewSignUp = () => {
                         autoComplete="false"
                         onChange={(e) => setName(e.target.value)}
                         type="name"
-                        placeholder="Username"
+                        placeholder="Name"
                       />
                     </div>
                   </div>
@@ -158,38 +147,6 @@ const NewSignUp = () => {
                     </div>
                   </div>
 
-                  {/* {
-                   user?<> <div className="main-inp-div">
-                   <p className="inp-label-txt">Username</p>
-                   <div className="inp-div">
-                     <AccountBoxIcon sx={{ color: "gray", opacity: "0.5" }} />
-                     <input
-                       required
-                       autoComplete="false"
-                       onChange={(e) => setName(e.target.value)}
-                       type="name"
-                       placeholder="Username"
-                     />
-                   </div>
-                 </div>
-
-                 <div className="main-inp-div">
-                   <p className="inp-label-txt">Phone Number</p>
-                   <div className="inp-div">
-                     <LocalPhoneIcon sx={{ color: "gray", opacity: "0.5" }} />
-                     <input
-                       required
-                       autoComplete="false"
-                       onChange={(e) => setPhoneNumber(e.target.value)}
-                       type="numer"
-                       placeholder="Phone Number"
-                     />
-                   </div>
-                 </div></>:null
-                 } */}
-                  {/* {!myState?<>
-                 
-                 </>:null} */}
 
                   <div className="forgot-pass-div">
                     <p className="forgot-pass-txt">Forgot password?</p>

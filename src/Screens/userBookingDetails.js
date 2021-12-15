@@ -1,54 +1,30 @@
 import "../Css/cart.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useEffect, useState } from "react";
 import {
   auth,
   onAuthStateChanged,
-  set,
-  ref,
-  database,
 } from "../config/Firebase/Firebase";
+import { useSelector } from "react-redux";
 
-const DetailConfirmation = () => {
+const UserBookingDetails = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-
-  const myState = useSelector((state) => state.sendDataToPayment);
-  const { userData } = myState;
-
-  const uidState = useSelector((state) => state.getUserUid);
-  const { userUid } = uidState;
-  
-  
-  const HotelSelectedState = useSelector((state) => state.getSelectedHotel);
-  const { hotelData } = HotelSelectedState;
-
- 
-  let userInformation = userData;
-  userInformation.hotelName = hotelData.hotelName;
-  userInformation.hotelService = hotelData.hotelService;
-  userInformation.numOfRooms = hotelData.numOfRooms;
-  userInformation.perDayPrice = hotelData.perDayPrice;
-
 
   const navigate = useNavigate();
 
-  const handleCompletion = () => {
+ 
+  const bookingDetailState = useSelector((state) => state.getBookingData);
+  const { dbData } = bookingDetailState;
 
-    set(ref(database, "users/" + userUid), userInformation);
-
-    navigate("/completed")
-  };
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
       } else {
-        navigate("/login")
+        navigate("/login");
       }
     });
   }, []);
@@ -58,7 +34,7 @@ const DetailConfirmation = () => {
       <div className="cart-main-container">
         <div className="header">
           <div className="back-arrow-div">
-            <Link to="/info" style={{ color: "black" }}>
+            <Link to="/" style={{ color: "black" }}>
               <ArrowBackIcon className="arrow-icon" />
             </Link>
             <h5>Back </h5>
@@ -71,7 +47,7 @@ const DetailConfirmation = () => {
 
         <div className="body-div">
           <div className="heading-div">
-            <h3>Confirm Your Details</h3>
+            <h3>Your Booking Details</h3>
           </div>
         </div>
 
@@ -84,7 +60,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Hotel Name" + " : " + hotelData.hotelName}
+              value={"Hotel Name" + " : " + dbData.hotelName}
             />
           </div>
           <br />
@@ -96,7 +72,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Name" + " : " + userData.name}
+              value={"Hotel Service" + " : " + dbData.hotelService}
             />
           </div>
           <br />
@@ -108,7 +84,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Contact Number" + " : " + userData.contactNumber}
+              value={"Num Of Rooms" + " : " + dbData.numOfRooms}
             />
           </div>
           <br />
@@ -120,7 +96,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Email" + " : " + userData.email}
+              value={"Per Day Price" + " : " + "$" +dbData.perDayPrice}
             />
           </div>
           <br />
@@ -132,7 +108,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"CNIC" + " : " + userData.cnic}
+              value={"Name" + " : " + dbData.name}
             />
           </div>
           <br />
@@ -144,7 +120,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"No Of Persons" + " : " + userData.noOfPersons}
+              value={"Contact Number" + " : " + dbData.contactNumber}
             />
           </div>
           <br />
@@ -156,7 +132,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"No Of Days" + " : " + userData.noOfDays}
+              value={"Email" + " : " + dbData.email}
             />
           </div>
           <br />
@@ -168,22 +144,50 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Address" + " : " + userData.address}
+              value={"CNIC" + " : " + dbData.cnic}
             />
           </div>
           <br />
-          <div class="col-sm-12" style={{ textAlign: "center" }}>
-            <button
-              onClick={() => handleCompletion()}
-              className="btn btn-primary"
-            >
-              Complete
-            </button>
+          <div>
+            <input
+              style={{ textAlign: "center" }}
+              disabled
+              type="text"
+              className="form-control"
+              aria-label="Small"
+              aria-describedby="inputGroup-sizing-sm"
+              value={"No Of Persons" + " : " + dbData.noOfPersons}
+            />
           </div>
+          <br />
+          <div>
+            <input
+              style={{ textAlign: "center" }}
+              disabled
+              type="text"
+              className="form-control"
+              aria-label="Small"
+              aria-describedby="inputGroup-sizing-sm"
+              value={"No Of Days" + " : " + dbData.noOfDays}
+            />
+          </div>
+          <br />
+          <div>
+            <input
+              style={{ textAlign: "center" }}
+              disabled
+              type="text"
+              className="form-control"
+              aria-label="Small"
+              aria-describedby="inputGroup-sizing-sm"
+              value={"Address" + " : " + dbData.address}
+            />
+          </div>
+          <br />
         </div>
       </div>
     </>
   );
 };
 
-export default DetailConfirmation;
+export default UserBookingDetails;

@@ -1,8 +1,5 @@
 import "../Css/cart.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CartItems from "../Components/cartItem";
-import Button from "@mui/material/Button";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -45,10 +42,6 @@ const Cart = () => {
         <div className="body-div">
           <div className="heading-div">
             <h3>Add Your Details</h3>
-            {/* <p>
-              You Have <span style={{ fontWeight: "600" }}>0</span> Items In
-              Shopping Cart
-            </p> */}
           </div>
         </div>
 
