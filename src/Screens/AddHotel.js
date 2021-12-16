@@ -25,7 +25,7 @@ const AddHotel = () => {
     e.preventDefault();
     const file = e.target[0].files[0];
     uploadImage(file);
-    navigate("/");
+    // navigate("/");
   };
 
   const uploadImage = (file) => {

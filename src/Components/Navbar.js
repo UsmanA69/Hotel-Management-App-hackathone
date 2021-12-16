@@ -77,7 +77,7 @@ const MuiAppBar = () => {
           >
             <img
               // style={{ margin: "5px" }}
-              src="Images/hotel-management-logo (1).png"
+              src="images/hotel-management-logo.png"
               width="60px"
               alt="logo"
             />
@@ -128,7 +128,7 @@ const MuiAppBar = () => {
           >
             <img
               style={{ margin: "5px" }}
-              src="Images/hotel-management-logo (1).png"
+              src="images/hotel-management-logo.png"
               width="60px"
               alt="logo"
             />
