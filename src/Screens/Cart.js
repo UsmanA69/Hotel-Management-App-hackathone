@@ -45,7 +45,7 @@ const Cart = () => {
           </div>
         </div>
 
-        <div className="items-div">
+        <div className="items-div"  style={{overflowY:'scroll',overflowX:'hidden'}}>
           <Form />
         </div>
       </div>

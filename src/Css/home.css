@@ -10,8 +10,14 @@ body{
     border: 1px solid black;
 } */
 .item-inside{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 5px !important;
+}
+.img-div{
+    border: 2px solid lightgray;
+}
+.hotel-details{
+    background: #fcfcfc;
 }
 .price-and-add{
     margin: 5px;

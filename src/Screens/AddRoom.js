@@ -11,15 +11,14 @@ import {
   ref as sRef,
 } from "firebase/storage";
 
-const AddHotel = () => {
-  const [hotelName, setHotelName] = useState();
-  const [hotelService, setHotelService] = useState();
-  const [numOfRooms, setNumOfRooms] = useState();
+const AddRoom = () => {
+  const [roomName, setRoomName] = useState();
+  const [roomService, setRoomService] = useState();
+  const [numOfRoomsAvailable, setNumOfRoomsAvailable] = useState();
   const [perDayPrice, setPerDayPrice] = useState();
-  const [hotelPicture, setHotelPicture] = useState("");
+  const [roomPicture, setRoomPicture] = useState("");
   const [pregress, setPregress] = useState(0);
 
-  const navigate = useNavigate();
 
   const handlePictureSubmit = (e) => {
     e.preventDefault();
@@ -44,18 +43,18 @@ const AddHotel = () => {
       (err) => console.log(err),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) =>
-          setHotelPicture(url)
+          setRoomPicture(url)
         );
       }
     );
   };
 
   let hotelData = {
-    hotelName,
-    hotelService,
-    numOfRooms,
+    roomName,
+    roomService,
+    numOfRoomsAvailable,
     perDayPrice,
-    hotelPicture,
+    roomPicture,
   };
 
   const handleSubmition = (e) => {
@@ -107,36 +106,36 @@ const AddHotel = () => {
           <form onSubmit={(e) => handleSubmition(e)}>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label for="inputEmail4">Hotel Name</label>
+                <label for="inputEmail4">Room Name</label>
                 <input
                   type="name"
                   className="form-control"
                   id="inputEmail4"
                   required
-                  placeholder="Hotel Name"
-                  onChange={(e) => setHotelName(e.target.value)}
+                  placeholder="Room Name"
+                  onChange={(e) => setRoomName(e.target.value)}
                 />
               </div>
               <div className="form-group col-md-6">
-                <label for="inputEmail4">Hotel Service</label>
+                <label for="inputEmail4">Room Service</label>
                 <input
                   type="name"
                   className="form-control"
                   id="inputEmail4"
                   required
-                  placeholder="Hotel Service"
-                  onChange={(e) => setHotelService(e.target.value)}
+                  placeholder="Room Service"
+                  onChange={(e) => setRoomService(e.target.value)}
                 />
               </div>
               <div className="form-group col-md-6">
-                <label for="inputEmail4">Number Of Rooms in Hotel</label>
+                <label for="inputEmail4">Number Of Rooms Available</label>
                 <input
                   type="number"
                   className="form-control"
                   id="inputEmail4"
                   required
-                  placeholder="Num Of Rooms"
-                  onChange={(e) => setNumOfRooms(e.target.value)}
+                  placeholder="Num Of Rooms Available"
+                  onChange={(e) => setNumOfRoomsAvailable(e.target.value)}
                 />
               </div>
               <div className="form-group col-md-6">
@@ -167,4 +166,4 @@ const AddHotel = () => {
   );
 };
 
-export default AddHotel;
+export default AddRoom;

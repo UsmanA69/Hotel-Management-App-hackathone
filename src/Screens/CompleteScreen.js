@@ -13,9 +13,8 @@ const CompleteScreen = () => {
   const uidState = useSelector((state) => state.getUserUid);
   const { userUid } = uidState;
 
-
   const backToHome = () => {
-      console.log("working")
+    console.log("working");
     onValue(ref(database, "users/" + userUid), (snapshot) => {
       const dbData = snapshot.val();
       dispatch(GET_BOOKING_DETAILS(dbData));
@@ -27,7 +26,7 @@ const CompleteScreen = () => {
     <div
       style={{
         display: "flex",
-        flexDirection:"column",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
       }}

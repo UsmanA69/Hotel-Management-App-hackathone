@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AddHotel from "../../Screens/AddHotel";
+import AddRoom from "../../Screens/AddRoom";
 import Cart from "../../Screens/Cart";
 import CompleteScreen from "../../Screens/CompleteScreen";
 import Home from "../../Screens/home";
@@ -18,7 +18,7 @@ const AppRouter = () => {
         <Route path="/info" element={<Cart />} />
         <Route path="/confirm-detail" element={<DetailConfirmation />} />
         <Route path="/completed" element={<CompleteScreen />} />
-        <Route path="/addhotel" element={<AddHotel />} />
+        <Route path="/addroom" element={<AddRoom />} />
         <Route path="/booking-details" element={<UserBookingDetails />} />
       </Routes>
     </Router>

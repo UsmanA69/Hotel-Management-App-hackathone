@@ -21,26 +21,24 @@ const DetailConfirmation = () => {
 
   const uidState = useSelector((state) => state.getUserUid);
   const { userUid } = uidState;
-  
-  
+
   const HotelSelectedState = useSelector((state) => state.getSelectedHotel);
-  const { hotelData } = HotelSelectedState;
+  const { roomData } = HotelSelectedState;
 
- 
   let userInformation = userData;
-  userInformation.hotelName = hotelData.hotelName;
-  userInformation.hotelService = hotelData.hotelService;
-  userInformation.numOfRooms = hotelData.numOfRooms;
-  userInformation.perDayPrice = hotelData.perDayPrice;
-
+  userInformation.roomName = roomData.roomName;
+  userInformation.roomService = roomData.roomService;
+  // userInformation.numOfRooms = roomData.numOfRooms;
+  userInformation.perDayPrice = roomData.perDayPrice;
 
   const navigate = useNavigate();
-
+  
   const handleCompletion = () => {
-
+    console.log("working");
     set(ref(database, "users/" + userUid), userInformation);
+    console.log("working 1");
 
-    navigate("/completed")
+    navigate("/completed");
   };
 
   useEffect(() => {
@@ -48,7 +46,7 @@ const DetailConfirmation = () => {
       if (user) {
         setLoggedIn(true);
       } else {
-        navigate("/login")
+        navigate("/login");
       }
     });
   }, []);
@@ -75,7 +73,10 @@ const DetailConfirmation = () => {
           </div>
         </div>
 
-        <div className="items-div">
+        <div
+          className="items-div"
+          style={{ overflowY: "scroll", overflowX: "hidden" }}
+        >
           <div>
             <input
               style={{ textAlign: "center" }}
@@ -84,7 +85,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Hotel Name" + " : " + hotelData.hotelName}
+              value={"Room " + " : " + roomData.roomName}
             />
           </div>
           <br />
@@ -157,6 +158,18 @@ const DetailConfirmation = () => {
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
               value={"No Of Days" + " : " + userData.noOfDays}
+            />
+          </div>
+          <br />
+          <div>
+            <input
+              style={{ textAlign: "center" }}
+              disabled
+              type="text"
+              className="form-control"
+              aria-label="Small"
+              aria-describedby="inputGroup-sizing-sm"
+              value={"Rooms Booked" + " : " + userData.roomsWant}
             />
           </div>
           <br />

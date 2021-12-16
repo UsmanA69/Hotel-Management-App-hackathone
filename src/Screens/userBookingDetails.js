@@ -60,7 +60,7 @@ const UserBookingDetails = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Hotel Name" + " : " + dbData.hotelName}
+              value={"Room Name" + " : " + dbData.roomName}
             />
           </div>
           <br />
@@ -72,7 +72,7 @@ const UserBookingDetails = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Hotel Service" + " : " + dbData.hotelService}
+              value={"Room Service" + " : " + dbData.roomService}
             />
           </div>
           <br />
@@ -84,7 +84,7 @@ const UserBookingDetails = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Num Of Rooms" + " : " + dbData.numOfRooms}
+              value={"Room Booked" + " : " + dbData.roomsWant}
             />
           </div>
           <br />

@@ -45,7 +45,7 @@ const MuiAppBar = () => {
 
   const navigateToAddHotel = () => {
     setAnchorElNav(null);
-    navigate("/addhotel");
+    navigate("/addroom");
   };
 
   const handleCloseUserMenu = () => {
@@ -67,20 +67,15 @@ const MuiAppBar = () => {
     });
   }, []);
   return (
-    <AppBar position="static">
-      <Container maxWidth="auto" style={{ marginLeft: "5%" }}>
+    <AppBar position="static" sx={{background:'white',boxShadow:'none',borderBottom:'1px solid lightgray'}} >
+      <Container maxWidth="auto">
         <Toolbar disableGutters>
           <Box
             noWrap
             component="div"
             sx={{ mr: { xs: 0, md: 2 }, display: { xs: "none", md: "flex" } }}
           >
-            <img
-              // style={{ margin: "5px" }}
-              src="images/hotel-management-logo.png"
-              width="60px"
-              alt="logo"
-            />
+            <h3 style={{color:'#094949'}} >Hotel Logo</h3>
           </Box>
 
           {addHotel ? (
@@ -93,7 +88,7 @@ const MuiAppBar = () => {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                <MenuIcon sx={{color:'#094949'}} />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -113,8 +108,8 @@ const MuiAppBar = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <MenuItem onClick={navigateToAddHotel}>
-                  <Typography textAlign="center">Add Hotel</Typography>
+                <MenuItem onClick={navigateToAddHotel}  sx={{color:'#094949'}}>
+                  <Typography textAlign="center" sx={{color:'#094949'}} >Add Hotel</Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -126,18 +121,13 @@ const MuiAppBar = () => {
             component="div"
             sx={{ mr: 2, flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <img
-              style={{ margin: "5px" }}
-              src="images/hotel-management-logo.png"
-              width="60px"
-              alt="logo"
-            />
+            <h3 style={{color:'#094949'}} >Hotel Logo</h3>
           </Box>
           {addHotel ? (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
                 onClick={navigateToAddHotel}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white", display: "block",color:'#094949' }}
               >
                 Add Hotel
               </Button>
@@ -157,7 +147,7 @@ const MuiAppBar = () => {
               >
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu}>
-                    <AccountCircle fontSize="large" />
+                    <AccountCircle fontSize="large"  sx={{color:'#094949'}}/>
                   </IconButton>
                 </Tooltip>
                 <Menu

@@ -9,9 +9,9 @@ export const SEND_USER_UID = (userUid) => ({
   userUid
 });
 
-export const GET_SELECTED_HOTEL = (hotelData) => ({
+export const GET_SELECTED_HOTEL = (roomData) => ({
   type: "GET_SELECTED_HOTEL",
-  hotelData
+  roomData
 });
 
 export const GET_BOOKING_DETAILS = (dbData) => ({

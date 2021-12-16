@@ -13,6 +13,7 @@ const Form = () => {
   const [cnic, setCnic] = useState();
   const [noOfPersons, setNoOfPersons] = useState();
   const [noOfDays, setNoOfDays] = useState();
+  const [roomsWant, setRoomsWant] = useState();
   const [address, setAddress] = useState();
 
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Form = () => {
     cnic,
     noOfPersons,
     noOfDays,
+    roomsWant,
     address,
   };
   const handleSubmition = (e) => {
@@ -104,7 +106,7 @@ const Form = () => {
               className="form-control"
               id="inputEmail4"
               required
-              placeholder="Type in Numbers"
+              placeholder="Type in Numbers **"
               onChange={(e) => setNoOfPersons(e.target.value)}
             />
           </div>
@@ -115,8 +117,19 @@ const Form = () => {
               className="form-control"
               id="inputPassword4"
               required
-              placeholder="Type in Numbers"
+              placeholder="Type in Numbers **"
               onChange={(e) => setNoOfDays(e.target.value)}
+            />
+          </div>
+          <div className="form-group col-md-6">
+            <label for="inputPassword4">No OF Rooms</label>
+            <input
+              type="number"
+              className="form-control"
+              id="inputPassword4"
+              required
+              placeholder="Type How Many Rooms you Want to Book  in Number**"
+              onChange={(e) => setRoomsWant(e.target.value)}
             />
           </div>
           <div className="form-group col-md-6">
