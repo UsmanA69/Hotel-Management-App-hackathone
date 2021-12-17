@@ -17,11 +17,10 @@ import {
 
 const NewSignUp = () => {
   const [name, setName] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [contactNumber, setContactNumber] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [user, setUser] = useState(false);
-
 
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +31,7 @@ const NewSignUp = () => {
     let dataObj = {
       name,
       email,
-      phoneNumber,
+      contactNumber,
       password,
     };
 
@@ -42,8 +41,9 @@ const NewSignUp = () => {
         const user = userCredential.user;
         const userUid = userCredential.user.uid;
 
-        set(ref(database, "users/" + userUid), dataObj);
-        navigate("/info")
+        set(ref(database, "users/" + userUid + "/" + "UserData" ), dataObj);
+        // set(ref(database, `users/${userUid}/UserData/${userUid}`), dataObj);
+        navigate("/info");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -140,13 +140,12 @@ const NewSignUp = () => {
                       <input
                         required
                         autoComplete="false"
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onChange={(e) => setContactNumber(e.target.value)}
                         type="numer"
                         placeholder="Phone Number"
                       />
                     </div>
                   </div>
-
 
                   <div className="forgot-pass-div">
                     <p className="forgot-pass-txt">Forgot password?</p>

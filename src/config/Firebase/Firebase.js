@@ -13,7 +13,9 @@ import {
   ref,
   push,
   update,
-  set,onValue
+  set,
+  onValue,
+  remove
 } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
@@ -23,7 +25,7 @@ const firebaseConfig = {
   projectId: "dashboardpractise-645fe",
   storageBucket: "dashboardpractise-645fe.appspot.com",
   messagingSenderId: "33489577919",
-  appId: "1:33489577919:web:8576ec4c4b67894895e30a"
+  appId: "1:33489577919:web:8576ec4c4b67894895e30a",
 };
 
 // Initialize Firebase
@@ -46,5 +48,6 @@ export {
   push,
   update,
   onValue,
-  storage
-}
+  storage,
+  remove
+};

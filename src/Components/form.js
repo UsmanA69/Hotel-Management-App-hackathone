@@ -1,15 +1,22 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { SEND_DATA_TO_PAYMENT } from "../config/Redux/Actions/actions";
-import {auth,setLogOut,onAuthStateChanged} from '../config/Firebase/Firebase'
+import {
+  auth,
+  onAuthStateChanged,
+  onValue,
+  ref,
+  database,
+} from "../config/Firebase/Firebase";
 
 const Form = () => {
   const [loggedIn, setLoggedIn] = useState();
-  const [name, setName] = useState();
-  const [contactNumber, setContactNumber] = useState();
-  const [email, setEmail] = useState();
+  const [newUserData, setNewUserData] = useState([]);
+  // const [name, setName] = useState();
+  // const [contactNumber, setContactNumber] = useState();
+  // const [email, setEmail] = useState();
   const [cnic, setCnic] = useState();
   const [noOfPersons, setNoOfPersons] = useState();
   const [noOfDays, setNoOfDays] = useState();
@@ -20,29 +27,40 @@ const Form = () => {
   const navigate = useNavigate();
 
   let UserData = {
-    name,
-    contactNumber,
-    email,
+    // name,
+    // email,
+    // contactNumber,
     cnic,
     noOfPersons,
     noOfDays,
     roomsWant,
     address,
   };
+  UserData.name = newUserData.name;
+  UserData.email = newUserData.email;
+  UserData.phoneNumber = newUserData.phoneNumber;
+  // console.log(newUserData);
+
   const handleSubmition = (e) => {
     e.preventDefault();
     dispatch(SEND_DATA_TO_PAYMENT(UserData));
     // console.log(UserData);
-    navigate('/confirm-detail')
+    navigate("/confirm-detail");
   };
-
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        const Uid = user.uid;
+        onValue(
+          ref(database, "users/" + Uid  + "/" +"UserData"  ),
+          (snapshot) => {
+            setNewUserData(snapshot.val());
+          }
+        );
         setLoggedIn(true);
       } else {
-        navigate("/login")
+        navigate("/login");
         // setLoading(false);
         // User is signed out
         // ...
@@ -52,16 +70,16 @@ const Form = () => {
   return (
     <>
       <form onSubmit={(e) => handleSubmition(e)}>
-        <div className="form-row" >
+        <div className="form-row">
           <div className="form-group col-md-6">
             <label for="inputEmail4">Name</label>
             <input
               type="name"
               className="form-control"
               id="inputEmail4"
-              required
               placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
+              disabled
+              value={newUserData.name}
             />
           </div>
           <div className="form-group col-md-6">
@@ -70,9 +88,9 @@ const Form = () => {
               type="number"
               className="form-control"
               id="inputPassword4"
-              required
               placeholder="Contact Number"
-              onChange={(e) => setContactNumber(e.target.value)}
+              disabled
+              value={newUserData.contactNumber}
             />
           </div>
           <div className="form-group col-md-6">
@@ -81,9 +99,9 @@ const Form = () => {
               type="email"
               className="form-control"
               id="inputPassword4"
-              required
               placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
+              disabled
+              value={newUserData.email}
             />
           </div>
           <div className="form-group col-md-6">
@@ -133,15 +151,15 @@ const Form = () => {
             />
           </div>
           <div className="form-group col-md-6">
-          <label for="inputAddress">Address</label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputAddress"
-            required
-            placeholder="i.e: 1234 Main St"
-            onChange={(e) => setAddress(e.target.value)}
-          />
+            <label for="inputAddress">Address</label>
+            <input
+              type="text"
+              className="form-control"
+              id="inputAddress"
+              required
+              placeholder="i.e: 1234 Main St"
+              onChange={(e) => setAddress(e.target.value)}
+            />
           </div>
         </div>
         <div className="form-row">

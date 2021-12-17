@@ -1,13 +1,11 @@
 import "../Css/cart.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Link, useLocation } from "react-router-dom";
-import Form from '../Components/form'
+import EditProfileData from "../Components/editProfileData";
 
-const Cart = () => {
- 
-
-
+const EditProfile = () => {
+  
   return (
     <>
       <div className="cart-main-container">
@@ -27,16 +25,19 @@ const Cart = () => {
 
         <div className="body-div">
           <div className="heading-div">
-            <h3>Add Your Details</h3>
+            <h3>Change Your Credentials</h3>
           </div>
         </div>
 
-        <div className="items-div"  style={{overflowY:'scroll',overflowX:'hidden'}}>
-          <Form />
+        <div
+          className="items-div"
+          style={{ overflowY: "scroll", overflowX: "hidden" }}
+        >
+          <EditProfileData />
         </div>
       </div>
     </>
   );
 };
 
-export default Cart;
+export default EditProfile;

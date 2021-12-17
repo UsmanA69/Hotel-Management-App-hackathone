@@ -9,38 +9,38 @@ const Footer = () => {
     <>
       {/* <!-- Footer --> */}
       <footer
-        class="page-footer font-small special-color-dark pt-4"
+        className="page-footer font-small special-color-dark pt-4"
         style={{
           background: "#263238",
           height: "200px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          position: "absolute", bottom: "0", left: "0" ,
+          // position: "absolute", bottom: "0", left: "0" ,
           width:'100%'
         }}
       >
         {/* <!-- Footer Elements --> */}
-        <div class="container">
+        <div className="container">
           {/* <!-- Social buttons --> */}
-          <ul class="list-unstyled list-inline text-center">
-            <li class="list-inline-item">
-              <a class="btn-floating mx-1">
+          <ul className="list-unstyled list-inline text-center">
+            <li className="list-inline-item">
+              <a className="btn-floating mx-1">
                 <FacebookIcon sx={{ color: "white" }} />
               </a>
             </li>
-            <li class="list-inline-item">
-              <a class="btn-floating mx-1">
+            <li className="list-inline-item">
+              <a className="btn-floating mx-1">
                 <TwitterIcon sx={{ color: "white" }} />
               </a>
             </li>
-            <li class="list-inline-item">
-              <a class="btn-floating mx-1">
+            <li className="list-inline-item">
+              <a className="btn-floating mx-1">
                 <GoogleIcon sx={{ color: "white" }} />
               </a>
             </li>
-            <li class="list-inline-item">
-              <a class="btn-floating mx-1">
+            <li className="list-inline-item">
+              <a className="btn-floating mx-1">
                 <LinkedInIcon sx={{ color: "white" }} />
               </a>
             </li>
@@ -58,7 +58,7 @@ const Footer = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          class="footer-copyright text-center py-3"
+          className="footer-copyright text-center py-3"
         >
           © 2020 Copyright :
           <span style={{ paddingLeft: "5px", color: "#ADD8E6" }}>

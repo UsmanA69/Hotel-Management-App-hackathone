@@ -1,13 +1,11 @@
 import "../Css/cart.css";
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Link, Outlet } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import { Link, useLocation } from "react-router-dom";
-import Form from '../Components/form'
+import PersistentDrawerRight from "../Components/drawer";
 
-const Cart = () => {
- 
-
-
+const Dashboard = () => {
   return (
     <>
       <div className="cart-main-container">
@@ -20,23 +18,27 @@ const Cart = () => {
           </div>
           <div className="cart-icon-div">
             {/* <ShoppingCartIcon className="cart-icon" /> */}
-            <FormatListBulletedIcon className="cart-icon" />
+            {/* <FormatListBulletedIcon className="cart-icon" /> */}
+            <PersistentDrawerRight className="cart-icon"/>
           </div>
         </div>
         <hr />
 
         <div className="body-div">
           <div className="heading-div">
-            <h3>Add Your Details</h3>
+            <h3>Dashboard</h3>
           </div>
         </div>
 
-        <div className="items-div"  style={{overflowY:'scroll',overflowX:'hidden'}}>
-          <Form />
+        <div
+          className="items-div"
+          style={{ overflowY: "scroll", overflowX: "hidden" }}
+        >
+          <Outlet />
         </div>
       </div>
     </>
   );
 };
 
-export default Cart;
+export default Dashboard;

@@ -9,9 +9,7 @@ import {
 } from "../config/Firebase/Firebase";
 import { CircularProgress, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  GET_SELECTED_HOTEL,
-} from "../config/Redux/Actions/actions";
+import { GET_SELECTED_HOTEL } from "../config/Redux/Actions/actions";
 import { useDispatch } from "react-redux";
 import MuiAppBar from "./Navbar";
 
@@ -84,10 +82,10 @@ const ItemCard = () => {
   };
 
   useEffect(() => {
+    
     let arr = [];
 
     onValue(ref(database, "hotels/"), (snapshot) => {
-      // const data = snapshot.val();
       snapshot.forEach((snap) => {
         arr.push(snap.val());
       });
@@ -97,8 +95,6 @@ const ItemCard = () => {
     // console.log(items);
     // console.log(item);
 
-    //setItems(arr);
-    // console.log(items);
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
@@ -271,9 +267,9 @@ const ItemCard = () => {
               )}
             </div>
           </div>
+          <Footer />
         </>
       )}
-      <Footer />
     </>
   );
 };

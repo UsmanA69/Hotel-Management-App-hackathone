@@ -28,9 +28,8 @@ const MuiAppBar = () => {
 
   const navigate = useNavigate();
 
-  const uidState = useSelector((state) => state.getUserUid);
-  const { userUid } = uidState;
-
+  // const uidState = useSelector((state) => state.getUserUid);
+  // const { userUid } = uidState;
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,9 +42,9 @@ const MuiAppBar = () => {
     setAnchorElNav(null);
   };
 
-  const navigateToAddHotel = () => {
+  const navigateToDashboard = () => {
     setAnchorElNav(null);
-    navigate("/addroom");
+    navigate("/dashboard");
   };
 
   const handleCloseUserMenu = () => {
@@ -56,18 +55,25 @@ const MuiAppBar = () => {
   // console.log(location.state);
 
   useEffect(() => {
-    if (userUid == "f2J7rIPZDwRhVrnQV41PLICQHpQ2") {
-      setAddHotel(true);
-    }
-
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
+        const Uid = user.uid;
+        if (Uid == "16TTz8PHxjXmQfSJgguQ9AKODdX2") {
+          setAddHotel(true);
+        }
       }
     });
   }, []);
   return (
-    <AppBar position="static" sx={{background:'white',boxShadow:'none',borderBottom:'1px solid lightgray'}} >
+    <AppBar
+      position="static"
+      sx={{
+        background: "white",
+        boxShadow: "none",
+        borderBottom: "1px solid lightgray",
+      }}
+    >
       <Container maxWidth="auto">
         <Toolbar disableGutters>
           <Box
@@ -75,7 +81,7 @@ const MuiAppBar = () => {
             component="div"
             sx={{ mr: { xs: 0, md: 2 }, display: { xs: "none", md: "flex" } }}
           >
-            <h3 style={{color:'#094949'}} >Hotel Logo</h3>
+            <h3 style={{ color: "#094949" }}>Hotel Logo</h3>
           </Box>
 
           {addHotel ? (
@@ -88,7 +94,7 @@ const MuiAppBar = () => {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                <MenuIcon sx={{color:'#094949'}} />
+                <MenuIcon sx={{ color: "#094949" }} />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -108,8 +114,13 @@ const MuiAppBar = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <MenuItem onClick={navigateToAddHotel}  sx={{color:'#094949'}}>
-                  <Typography textAlign="center" sx={{color:'#094949'}} >Add Hotel</Typography>
+                <MenuItem
+                  onClick={navigateToDashboard}
+                  sx={{ color: "#094949" }}
+                >
+                  <Typography textAlign="center" sx={{ color: "#094949" }}>
+                    DashBoard
+                  </Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -121,15 +132,20 @@ const MuiAppBar = () => {
             component="div"
             sx={{ mr: 2, flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <h3 style={{color:'#094949'}} >Hotel Logo</h3>
+            <h3 style={{ color: "#094949" }}>Hotel Logo</h3>
           </Box>
           {addHotel ? (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
-                onClick={navigateToAddHotel}
-                sx={{ my: 2, color: "white", display: "block",color:'#094949' }}
+                onClick={navigateToDashboard}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  color: "#094949",
+                }}
               >
-                Add Hotel
+                DashBoard
               </Button>
             </Box>
           ) : null}
@@ -147,7 +163,7 @@ const MuiAppBar = () => {
               >
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu}>
-                    <AccountCircle fontSize="large"  sx={{color:'#094949'}}/>
+                    <AccountCircle fontSize="large" sx={{ color: "#094949" }} />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -166,6 +182,13 @@ const MuiAppBar = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
+                  <Link to="/edit-profile" style={{ textDecoration: "none" }}>
+                    <MenuItem>
+                      <Button variant="outlined" sx={{ margin: "5px" }}>
+                        Edit Profile
+                      </Button>
+                    </MenuItem>
+                  </Link>
                   <Link
                     to="/booking-details"
                     style={{ textDecoration: "none" }}

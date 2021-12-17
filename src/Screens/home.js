@@ -1,6 +1,6 @@
 import "../Css/home.css";
 import ItemCard from "../Components/itemCard";
-import { auth, onAuthStateChanged } from "../config/Firebase/Firebase";
+import { ref, database,push , child ,  } from "../config/Firebase/Firebase";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {

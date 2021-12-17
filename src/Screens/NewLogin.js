@@ -34,7 +34,7 @@ const NewLogin = () => {
         
 
 
-        navigate("/info",{state:userUid});
+        navigate("/info");
         // ...
       })
       .catch((error) => {

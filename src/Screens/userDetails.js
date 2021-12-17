@@ -11,32 +11,70 @@ import {
   set,
   ref,
   database,
+  push,
+  update
 } from "../config/Firebase/Firebase";
+import { child } from "firebase/database";
 
 const DetailConfirmation = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const myState = useSelector((state) => state.sendDataToPayment);
-  const { userData } = myState;
-
-  const uidState = useSelector((state) => state.getUserUid);
-  const { userUid } = uidState;
+  const { UserData } = myState;
 
   const HotelSelectedState = useSelector((state) => state.getSelectedHotel);
   const { roomData } = HotelSelectedState;
 
-  let userInformation = userData;
+  let userInformation = UserData;
   userInformation.roomName = roomData.roomName;
   userInformation.roomService = roomData.roomService;
-  // userInformation.numOfRooms = roomData.numOfRooms;
   userInformation.perDayPrice = roomData.perDayPrice;
 
   const navigate = useNavigate();
-  
+
+  console.log(userInformation);
+  const {
+    address,
+    cnic,
+    email,
+    name,
+    noOfDays,
+    noOfPersons,
+    perDayPrice,
+    phoneNumber,
+    roomName,
+    roomService,
+    roomsWant,
+  } = userInformation;
+  const userRoomBookedinfrm = {
+    address,
+    cnic,
+    noOfDays,
+    noOfPersons,
+    perDayPrice,
+    roomName,
+    roomService,
+    roomsWant,
+  };
+
   const handleCompletion = () => {
     console.log("working");
-    set(ref(database, "users/" + userUid), userInformation);
-    console.log("working 1");
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const Uid = user.uid;
+        const newKey = push(child(ref(database), "bookedHotelinformation")).key;
+
+        // set(
+        //   ref(database, `users/${Uid}/` +  {newKey}),
+        //   userRoomBookedinfrm
+        // );
+        const updates = {};
+        // updates["/posts/" + newKey] = userRoomBookedinfrm;
+        updates["/users/" + Uid + "/" + "BookedRoom" + "/" + `BookedRoom${newKey}`] = userRoomBookedinfrm;
+        update(ref(database), updates)
+        console.log("working 1");
+      }
+    });
 
     navigate("/completed");
   };
@@ -44,6 +82,8 @@ const DetailConfirmation = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        const Uid = user.uid;
+
         setLoggedIn(true);
       } else {
         navigate("/login");
@@ -97,7 +137,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Name" + " : " + userData.name}
+              value={"Name" + " : " + UserData.name}
             />
           </div>
           <br />
@@ -109,7 +149,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Contact Number" + " : " + userData.contactNumber}
+              value={"Contact Number" + " : " + UserData.phoneNumber}
             />
           </div>
           <br />
@@ -121,7 +161,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Email" + " : " + userData.email}
+              value={"Email" + " : " + UserData.email}
             />
           </div>
           <br />
@@ -133,7 +173,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"CNIC" + " : " + userData.cnic}
+              value={"CNIC" + " : " + UserData.cnic}
             />
           </div>
           <br />
@@ -145,7 +185,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"No Of Persons" + " : " + userData.noOfPersons}
+              value={"No Of Persons" + " : " + UserData.noOfPersons}
             />
           </div>
           <br />
@@ -157,7 +197,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"No Of Days" + " : " + userData.noOfDays}
+              value={"No Of Days" + " : " + UserData.noOfDays}
             />
           </div>
           <br />
@@ -169,7 +209,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Rooms Booked" + " : " + userData.roomsWant}
+              value={"Rooms Booked" + " : " + UserData.roomsWant}
             />
           </div>
           <br />
@@ -181,7 +221,7 @@ const DetailConfirmation = () => {
               className="form-control"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              value={"Address" + " : " + userData.address}
+              value={"Address" + " : " + UserData.address}
             />
           </div>
           <br />
