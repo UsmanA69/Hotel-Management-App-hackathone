@@ -12,7 +12,7 @@ import {
   ref,
   database,
   push,
-  update
+  update,
 } from "../config/Firebase/Firebase";
 import { child } from "firebase/database";
 
@@ -32,16 +32,12 @@ const DetailConfirmation = () => {
 
   const navigate = useNavigate();
 
-  console.log(userInformation);
   const {
     address,
     cnic,
-    email,
-    name,
     noOfDays,
     noOfPersons,
     perDayPrice,
-    phoneNumber,
     roomName,
     roomService,
     roomsWant,
@@ -70,8 +66,10 @@ const DetailConfirmation = () => {
         // );
         const updates = {};
         // updates["/posts/" + newKey] = userRoomBookedinfrm;
-        updates["/users/" + Uid + "/" + "BookedRoom" + "/" + `BookedRoom${newKey}`] = userRoomBookedinfrm;
-        update(ref(database), updates)
+        updates[
+          "/users/" + Uid + "/" + "BookedRoom" + "/" + `BookedRoom${newKey}`
+        ] = userRoomBookedinfrm;
+        update(ref(database), updates);
         console.log("working 1");
       }
     });

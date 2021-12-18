@@ -9,15 +9,14 @@ import {
   onValue,
   ref,
   database,
-  onChildAdded
+  onChildAdded,
 } from "../config/Firebase/Firebase";
+import { Box } from "@mui/material";
 
 const UserBookingDetails = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [dbData, setDbData] = useState([]);
 
-
-  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,9 +28,12 @@ const UserBookingDetails = () => {
         let arr = [];
         let refrence = ref(database, `users/${Uid}/BookedRoom`);
 
-        onChildAdded(refrence, (snapshot) => {
-          if(snapshot.exists()){
-            arr.push(snapshot.val())
+        onValue(refrence, (snapshot) => {
+          if (snapshot.exists()) {
+            snapshot.forEach((snap) => {
+              arr.push(snap.val());
+            });
+            // arr.push(snapshot.val())
           }
           setDbData(arr);
         });
@@ -65,119 +67,135 @@ const UserBookingDetails = () => {
           </div>
         </div>
 
-        {dbData.map((curElem) => {
-          const {
-            address,
-            cnic,
-            noOfDays,
-            noOfPersons,
-            perDayPrice,
-            roomName,
-            roomService,
-            roomsWant,
-          } = curElem;
+        <Box className="main-item-div"
+        sx={{display:{xs:'block',md:'flex'},justifyContent:'space-around'}}
+        >
+          {dbData.map((curElem,i) => {
+            const {
+              address,
+              cnic,
+              noOfDays,
+              noOfPersons,
+              perDayPrice,
+              roomName,
+              roomService,
+              roomsWant,
+            } = curElem;
 
-          return (
-            <div className="items-div">
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"Room Name" + " : " + roomName}
-                />
-              </div>
-              <br />
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"Room Service" + " : " + roomService}
-                />
-              </div>
-              <br />
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"Room Booked" + " : " + roomsWant}
-                />
-              </div>
-              <br />
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"Per Day Price" + " : " + "$" + perDayPrice}
-                />
-              </div>
-              <br />
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"Days Booked" + " : " + noOfDays}
-                />
-              </div>
-              <br />
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"Number Of Persons" + " : " + noOfPersons}
-                />
-              </div>
-              <br />
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"Address " + " : " + address}
-                />
-              </div>
-              <br />
-              <div>
-                <input
-                  style={{ textAlign: "center" }}
-                  disabled
-                  type="text"
-                  className="form-control"
-                  aria-label="Small"
-                  aria-describedby="inputGroup-sizing-sm"
-                  value={"CNIC" + " : " + cnic}
-                />
-              </div>
-              <br />
-            </div>
-          );
-        })}
+            return (
+              <Box className="items-div" sx={{ width: {xs:"100%",md:"45%"} }}>
+                <div>
+                  <input
+                    style={{ textAlign: "left" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Booking" + " : " + (i+1)}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Room Name" + " : " + roomName}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Room Service" + " : " + roomService}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Room Booked" + " : " + roomsWant}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Per Day Price" + " : " + "$" + perDayPrice}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Days Booked" + " : " + noOfDays}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Number Of Persons" + " : " + noOfPersons}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"Address " + " : " + address}
+                  />
+                </div>
+                <br />
+                <div>
+                  <input
+                    style={{ textAlign: "center" }}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm"
+                    value={"CNIC" + " : " + cnic}
+                  />
+                </div>
+                <br />
+              </Box>
+            );
+          })}
+        </Box>
       </div>
     </>
   );

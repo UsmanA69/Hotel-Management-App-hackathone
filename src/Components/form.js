@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { SEND_DATA_TO_PAYMENT } from "../config/Redux/Actions/actions";
@@ -14,22 +14,21 @@ import {
 const Form = () => {
   const [loggedIn, setLoggedIn] = useState();
   const [newUserData, setNewUserData] = useState([]);
-  // const [name, setName] = useState();
-  // const [contactNumber, setContactNumber] = useState();
-  // const [email, setEmail] = useState();
+
   const [cnic, setCnic] = useState();
   const [noOfPersons, setNoOfPersons] = useState();
   const [noOfDays, setNoOfDays] = useState();
   const [roomsWant, setRoomsWant] = useState();
   const [address, setAddress] = useState();
 
+  // const HotelSelectedState = useSelector((state) => state.getSelectedHotel);
+  // const { roomData } = HotelSelectedState;
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   let UserData = {
-    // name,
-    // email,
-    // contactNumber,
     cnic,
     noOfPersons,
     noOfDays,
@@ -39,12 +38,10 @@ const Form = () => {
   UserData.name = newUserData.name;
   UserData.email = newUserData.email;
   UserData.phoneNumber = newUserData.phoneNumber;
-  // console.log(newUserData);
 
   const handleSubmition = (e) => {
     e.preventDefault();
     dispatch(SEND_DATA_TO_PAYMENT(UserData));
-    // console.log(UserData);
     navigate("/confirm-detail");
   };
 
@@ -61,9 +58,7 @@ const Form = () => {
         setLoggedIn(true);
       } else {
         navigate("/login");
-        // setLoading(false);
         // User is signed out
-        // ...
       }
     });
   }, []);

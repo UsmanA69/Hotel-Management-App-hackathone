@@ -21,6 +21,7 @@ import Select from "@mui/material/Select";
 import Footer from "./footer";
 
 const ItemCard = () => {
+  const [name, setName] = useState("");
   const [items, setItems] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [item, setItem] = useState([]);
@@ -82,7 +83,6 @@ const ItemCard = () => {
   };
 
   useEffect(() => {
-    
     let arr = [];
 
     onValue(ref(database, "hotels/"), (snapshot) => {
@@ -92,12 +92,14 @@ const ItemCard = () => {
       setItems(arr);
       setItem(arr);
     });
-    // console.log(items);
-    // console.log(item);
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
+        onValue(ref(database, "users/" + user.uid + "/" + "UserData"), (snapshot) => {
+          const data = snapshot.val();
+          setName(data.name);
+        });
       } else {
         // setLoading(false);
         // User is signed out
@@ -123,6 +125,13 @@ const ItemCard = () => {
           <MuiAppBar />
           <div className="data-items container-fluid mt-5">
             <div className="row">
+              {loggedIn ? (
+                <div style={{ paddingLeft: "5%", margin: "5px" }}>
+                  <h1>Welcome, <br /> {name}</h1>
+                  <h4>Book Your Favourite Room</h4>
+                  <br />
+                </div>
+              ) : null}
               <div style={{ paddingLeft: "5%" }}>
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl
