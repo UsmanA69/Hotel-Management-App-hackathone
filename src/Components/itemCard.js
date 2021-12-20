@@ -24,7 +24,7 @@ const ItemCard = () => {
   const [name, setName] = useState("");
   const [items, setItems] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState();
 
   const [price, setPrice] = useState("");
   const [noOfRooms, setNoOfRooms] = useState("");
@@ -96,10 +96,13 @@ const ItemCard = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
-        onValue(ref(database, "users/" + user.uid + "/" + "UserData"), (snapshot) => {
-          const data = snapshot.val();
-          setName(data.name);
-        });
+        onValue(
+          ref(database, "users/" + user.uid + "/" + "UserData"),
+          (snapshot) => {
+            const data = snapshot.val();
+            setName(data.name);
+          }
+        );
       } else {
         // setLoading(false);
         // User is signed out
@@ -111,13 +114,7 @@ const ItemCard = () => {
   return (
     <>
       {!item ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className="loading-div" >
           <CircularProgress />
         </div>
       ) : (
@@ -127,7 +124,9 @@ const ItemCard = () => {
             <div className="row">
               {loggedIn ? (
                 <div style={{ paddingLeft: "5%", margin: "5px" }}>
-                  <h1>Welcome, <br /> {name}</h1>
+                  <h1>
+                    Welcome, <br /> {name}
+                  </h1>
                   <h4>Book Your Favourite Room</h4>
                   <br />
                 </div>
@@ -212,68 +211,69 @@ const ItemCard = () => {
                   </FormControl>
                 </Box>
               </div>
-              {!item ? (
+              {/* {!item ? (
                 <div
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
+                    paddingTop:'100px'
                   }}
                 >
                   <CircularProgress />
                 </div>
               ) : (
-                <div className="col-11 mx-auto">
-                  <div className="row my-5">
-                    {item.map((elem, index) => {
-                      const {
-                        roomName,
-                        roomService,
-                        numOfRoomsAvailable,
-                        perDayPrice,
-                        roomPicture,
-                      } = elem;
-                      return (
-                        <div
-                          key={index}
-                          className="item1 col-12 col-md-6 col-lg-6 col-xl-4 my-5"
-                        >
-                          <div className="row item-inside">
-                            <div className="col-12 col-md-12 col-lg-4 img-div">
-                              <img
-                                src={roomPicture}
-                                alt={roomName}
-                                className="img-fluid"
-                              />
-                            </div>
+                
+              )} */}
+              <div className="col-11 mx-auto">
+                <div className="row my-5">
+                  {item.map((elem, index) => {
+                    const {
+                      roomName,
+                      roomService,
+                      numOfRoomsAvailable,
+                      perDayPrice,
+                      roomPicture,
+                    } = elem;
+                    return (
+                      <div
+                        key={index}
+                        className="item1 col-12 col-md-6 col-lg-6 col-xl-4 my-5"
+                      >
+                        <div className="row item-inside">
+                          <div className="col-12 col-md-12 col-lg-4 img-div">
+                            <img
+                              src={roomPicture}
+                              alt={roomName}
+                              className="img-fluid"
+                            />
+                          </div>
 
-                            <div className="col-12 col-md-12 col-lg-8 hotel-details">
-                              <div className="main-tittle pt-4 pb-3">
-                                <h2>{roomName}</h2>
-                                <p>
-                                  No Of Rooms Available : {numOfRoomsAvailable}
-                                </p>
-                                <p>Services : {roomService}</p>
-                              </div>
-                              <div className="price-and-add">
-                                <div className="price-and-add-divide d-flex justify-content-between">
-                                  <h4>Price: ${perDayPrice} Per Day</h4>
-                                  <button
-                                    onClick={() => addToCart(elem)}
-                                    className="add-btn btn btn-outline-success"
-                                  >
-                                    Select
-                                  </button>
-                                </div>
+                          <div className="col-12 col-md-12 col-lg-8 hotel-details">
+                            <div className="main-tittle pt-4 pb-3">
+                              <h2>{roomName}</h2>
+                              <p>
+                                No Of Rooms Available : {numOfRoomsAvailable}
+                              </p>
+                              <p>Services : {roomService}</p>
+                            </div>
+                            <div className="price-and-add">
+                              <div className="price-and-add-divide d-flex justify-content-between">
+                                <h4>Price: ${perDayPrice} Per Day</h4>
+                                <button
+                                  onClick={() => addToCart(elem)}
+                                  className="add-btn btn btn-outline-success"
+                                >
+                                  Select
+                                </button>
                               </div>
                             </div>
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
+              </div>
             </div>
           </div>
           <Footer />

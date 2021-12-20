@@ -152,6 +152,29 @@ const MuiAppBar = () => {
 
           {/* view on small */}
 
+          {!loggedIn ? (
+            <Box
+              sx={{
+                position: "absolute",
+                top: "10px",
+                right: { xs: "0px", md: "50px" },
+              }}
+            >
+                  <Button
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                    sx={{
+                      //my: 2,
+                      //display: "block",
+                      color: "#094949",
+                    }}
+                  >
+                    Login
+                  </Button>
+            </Box>
+          ) : null}
+
           {loggedIn ? (
             <>
               <Box

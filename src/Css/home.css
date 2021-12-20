@@ -6,6 +6,11 @@ body{
     margin: 0 !important;
     overflow-x: hidden !important;
 }
+.loading-div{
+    display: flex;
+    justify-content: center;
+    padding-top: 20%;
+}
 /* .item1{
     border: 1px solid black;
 } */

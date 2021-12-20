@@ -10,12 +10,17 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "../config/Firebase/Firebase";
+import { useSelector } from "react-redux";
 
 
 const NewLogin = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(true);
+
+
+  const HotelSelectedState = useSelector((state) => state.getSelectedHotel);
+  const { roomData } = HotelSelectedState;
 
 
   const navigate = useNavigate();
@@ -33,8 +38,11 @@ const NewLogin = () => {
         const userUid = userCredential.user.uid;
         
 
-
-        navigate("/info");
+        if(roomData){
+          navigate("/info");
+        }else{
+          navigate("/");
+        }
         // ...
       })
       .catch((error) => {
